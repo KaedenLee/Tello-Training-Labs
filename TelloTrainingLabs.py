@@ -4,14 +4,11 @@
 
 import threading, socket, sys, time, subprocess
 
-
 # GLOBAL VARIABLES DECLARED HERE....
 host = ''
 port = 9000
-locaddr = (host,port)
-tello_address = ('192.168.10.1', 8889) # Get the Tello drone's address
-
-
+locaddr = (host, port)
+tello_address = ('192.168.10.1', 8889)  # Get the Tello drone's address
 
 # Creates a UDP socketd
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -26,15 +23,16 @@ def recv():
             data, server = sock.recvfrom(1518)
             print(data.decode(encoding="utf-8"))
         except Exception:
-            print ('\n****Keep Eye on Drone****\n')
+            print('\n****Keep Eye on Drone****\n')
             break
 
 
-def sendmsg(msg, sleep = 6):
+def sendmsg(msg, sleep=6):
     print("Sending: " + msg)
     msg = msg.encode(encoding="utf-8")
     sock.sendto(msg, tello_address)
     time.sleep(sleep)
+
 
 # recvThread create
 recvThread = threading.Thread(target=recv)
@@ -46,8 +44,16 @@ recvThread.start()
 # Square Function
 def square():
     for i in range(4):
-        sendmsg('forward 100')  #Drone will go forward 100cm
-        sendmsg('cw 90')  #Drone will turn Counter Clockwise 90 degrees
+        sendmsg('forward 100')  # Drone will go forward 100cm
+        sendmsg('cw 90')  # Drone will turn Counter Clockwise 90 degrees
+
+
+# Triangle Function
+def triangle():
+    sendmsg('up 100')
+    for i in range(3):
+        sendmsg('forward 100')  # Drone will go forward 100cm
+        sendmsg('cw 120')  # Drone will turn clockwise 120 degrees
 
 
 print("\nKaeden Lee")
@@ -56,7 +62,6 @@ print("Date: 3/3/20")
 print("\n****CHECK YOUR TELLO WIFI ADDRESS****")
 print("\n****CHECK SURROUNDING AREA BEFORE FLIGHT****")
 ready = input('\nAre you ready to take flight: ')
-
 
 try:
     if ready.lower() == 'yes':
