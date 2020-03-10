@@ -4,6 +4,7 @@
 
 import threading, socket, sys, time, subprocess
 
+
 # GLOBAL VARIABLES DECLARED HERE....
 host = ''
 port = 9000
@@ -55,8 +56,7 @@ try:
         sendmsg('command', 0)
         sendmsg('takeoff')
 
-        # Review the (SDK) Software Development Kit resource for Drone Commands
-        # Delete these comments before writing your program
+        sendmsg('go 100 0 0 60 m4')
 
         sendmsg('land')
 
