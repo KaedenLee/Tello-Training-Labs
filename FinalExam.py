@@ -29,6 +29,13 @@ def recv():
             print ('\n****Keep Eye on Drone****\n')
             break
 
+def flips():
+    sendmsg('up 50')
+    sendmsg('flip f')
+    sendmsg('flip b')
+    sendmsg('flip l')
+    sendmsg('flip r')
+
 
 def sendmsg(msg, sleep = 6):
     print("Sending: " + msg)
@@ -59,10 +66,7 @@ try:
         sendmsg('command', 0)
         sendmsg('takeoff')
 
-        sendmsg('flip f')
-        sendmsg('flip b')
-        sendmsg('flip l')
-        sendmsg('flip r')
+        flips()
 
         sendmsg('land')
 
